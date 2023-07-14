@@ -11,7 +11,7 @@ async function main() {
   // Symbol of the token
   const symbol = "FET";
   // How many token will be issued instantly after deploy
-  const initialSupply = 0;
+  const initialSupply = 100;
   // The number of decimals the token uses
   const decimals = 18;
   // If true, disables token minting
@@ -49,7 +49,7 @@ async function main() {
     constructorParams: {
       initialSupplyTo: initialSupplyTo,
       initialSupply: new BigNumber(initialSupply).shiftedBy(decimals).toFixed(),
-      deployWalletValue: toNano(1),
+      deployWalletValue: toNano(3),
       mintDisabled: disableMint,
       burnByRootDisabled: disableBurnByRoot,
       burnPaused: pauseBurn,
@@ -57,7 +57,19 @@ async function main() {
     },
     value: toNano(5),
   });
+  const deposit = new BigNumber(3).multipliedBy(10 ** 8).toString(); 
+  const amount = new BigNumber(deposit).plus(new BigNumber(1).multipliedBy(10 ** 9)).toString();;
   console.log(`${name}: ${tokenRoot.address}`);
+  const tokenWalletAddress = (await tokenRoot.methods.deployWallet({
+    answerId: 0,
+    walletOwner: rootOwner,
+    deployWalletValue: toNano(2),
+  })) as any;
+  console.log(`${name}: ${tokenWalletAddress}`);
+
+  // const tokenWalletContract = await locklift.factory.getDeployedContract("TokenWallet", tokenWalletAddress);
+  // const res = await tokenWalletContract.methods.balance({ answerId: 0 }).call() as any;
+  // console.log(res);
 }
 
 main()

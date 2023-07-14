@@ -2,12 +2,114 @@ import { expect } from "chai";
 import { Contract, Signer, toNano, WalletTypes, zeroAddress, Address, getRandomNonce } from "locklift";
 import { FactorySource } from "../build/factorySource";
 import BigNumber from "bignumber.js";
+import { EverscaleStandaloneClient } from "everscale-standalone-client";
 
 let walletAccount: any;
 let ownerAccount: any;
 let stakingPlatform: Contract<FactorySource["StakingPlatform"]>;
 let stakerWallet: Contract<FactorySource["StakerWallet"]>;
 let tokenWallet: Contract<FactorySource["TokenWallet"]>;
+const tokenWalletAbi = {
+  ABIversion: 2,
+  version: "2.2",
+  header: ["pubkey", "time", "expire"],
+  functions: [
+    { name: "constructor", inputs: [], outputs: [] },
+    {
+      name: "supportsInterface",
+      inputs: [
+        { name: "answerId", type: "uint32" },
+        { name: "interfaceID", type: "uint32" },
+      ],
+      outputs: [{ name: "value0", type: "bool" }],
+    },
+    { name: "destroy", inputs: [{ name: "remainingGasTo", type: "address" }], outputs: [] },
+    {
+      name: "burnByRoot",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "callbackTo", type: "address" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    {
+      name: "burn",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "callbackTo", type: "address" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    { name: "balance", inputs: [{ name: "answerId", type: "uint32" }], outputs: [{ name: "value0", type: "uint128" }] },
+    { name: "owner", inputs: [{ name: "answerId", type: "uint32" }], outputs: [{ name: "value0", type: "address" }] },
+    { name: "root", inputs: [{ name: "answerId", type: "uint32" }], outputs: [{ name: "value0", type: "address" }] },
+    { name: "walletCode", inputs: [{ name: "answerId", type: "uint32" }], outputs: [{ name: "value0", type: "cell" }] },
+    {
+      name: "transfer",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "recipient", type: "address" },
+        { name: "deployWalletValue", type: "uint128" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "notify", type: "bool" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    {
+      name: "transferToWallet",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "recipientTokenWallet", type: "address" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "notify", type: "bool" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    {
+      name: "acceptTransfer",
+      id: "0x67A0B95F",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "sender", type: "address" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "notify", type: "bool" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    {
+      name: "acceptMint",
+      id: "0x4384F298",
+      inputs: [
+        { name: "amount", type: "uint128" },
+        { name: "remainingGasTo", type: "address" },
+        { name: "notify", type: "bool" },
+        { name: "payload", type: "cell" },
+      ],
+      outputs: [],
+    },
+    { name: "sendSurplusGas", inputs: [{ name: "to", type: "address" }], outputs: [] },
+  ],
+  data: [
+    { key: 1, name: "root_", type: "address" },
+    { key: 2, name: "owner_", type: "address" },
+  ],
+  events: [],
+  fields: [
+    { name: "_pubkey", type: "uint256" },
+    { name: "_timestamp", type: "uint64" },
+    { name: "_constructorFlag", type: "bool" },
+    { name: "root_", type: "address" },
+    { name: "owner_", type: "address" },
+    { name: "balance_", type: "uint128" },
+  ],
+} as const;
 let signer: Signer;
 
 describe("Test Sample contract", async function () {
@@ -71,25 +173,37 @@ describe("Test Sample contract", async function () {
           // this field should be zero address if deploying with public key (see source code)
           deployer_: zeroAddress,
           randomNonce_: getRandomNonce(),
-          rootOwner_: rootOwner,
+          rootOwner_: ownerAccount.address,
           name_: name,
           symbol_: symbol,
           decimals_: decimals,
           walletCode_: TokenWallet.code,
         },
         constructorParams: {
-          initialSupplyTo: initialSupplyTo,
+          initialSupplyTo: ownerAccount.address,
           initialSupply: new BigNumber(initialSupply).shiftedBy(decimals).toFixed(),
-          deployWalletValue: toNano(1),
+          deployWalletValue: toNano(2),
           mintDisabled: disableMint,
           burnByRootDisabled: disableBurnByRoot,
           burnPaused: pauseBurn,
-          remainingGasTo: zeroAddress,
+          remainingGasTo: ownerAccount.address,
         },
         value: toNano(5),
       });
-      const walletA = await tokenRoot.methods.walletOf({walletOwner: rootOwner }).call();
-      console.log(walletA);
+
+      // const tokenWalletAddress = (await tokenRoot.methods
+      //   .walletOf({ answerId: 0, walletOwner: ownerAccount.address } as never)
+      //   .call()) as any;
+      const tokenWalletAddress = (await tokenRoot.methods
+        .deployWallet({ answerId: 0, walletOwner: ownerAccount.address, deployWalletValue: toNano(2) } as never)
+        .call()) as any;
+      const tokenWalletContract = new locklift.provider.Contract(tokenWalletAbi, tokenWalletAddress);
+      // console.log(tokenWalletContract);
+      // const tokenWalletContract = await locklift.factory.getDeployedContract("TokenWallet", tokenWalletAddress);
+      // console.log(tokenWalletContract);
+
+      const res = await tokenWalletContract.methods.balance({ answerId: 0 });
+      console.log(tokenWalletAddress);
       const { contract: platContract } = await locklift.factory.deployContract({
         contract: "StakingPlatform",
         publicKey: signer.publicKey,
@@ -136,14 +250,9 @@ describe("Test Sample contract", async function () {
       expect(await locklift.provider.getBalance(stakerWallet.address).then(balance => Number(balance))).to.be.eq(0);
     });
 
-    // it("Deposit to platform", async function () {
-    //   const NEW_STATE = 1;
-
-    //   await sample.methods.setState({ _state: NEW_STATE }).sendExternal({ publicKey: signer.publicKey });
-
-    //   const response = await sample.methods.getDetails({}).call();
-
-    //   expect(Number(response._state)).to.be.equal(NEW_STATE, "Wrong state");
-    // });
+    it("Deposit to platform", async function () {
+      const res = await stakerWallet.methods.deposit({ amount: 1 }).sendExternal({ publicKey: signer.publicKey });
+      console.log(res);
+    });
   });
 });
