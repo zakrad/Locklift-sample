@@ -2,10 +2,12 @@ import { Address, getRandomNonce, toNano, zeroAddress } from "locklift";
 import BigNumber from "bignumber.js";
 async function main() {
   const signer = (await locklift.keystore.getSigner("0"))!;
+  const signer2 = (await locklift.keystore.getSigner("1"))!;
   // Address of initial token supply recipient (write your own)
   const initialSupplyTo = new Address(`0:${signer.publicKey}`);
   // Address of token owner (write your own)
   const rootOwner = new Address(`0:${signer.publicKey}`);
+  const rootOwner2 = new Address(`0:${signer2.publicKey}`);
   // Name of the token
   const name = "First Everscale Token";
   // Symbol of the token
@@ -57,16 +59,27 @@ async function main() {
     },
     value: toNano(5),
   });
-  const deposit = new BigNumber(3).multipliedBy(10 ** 8).toString(); 
-  const amount = new BigNumber(deposit).plus(new BigNumber(1).multipliedBy(10 ** 9)).toString();;
+  const deposit = new BigNumber(3).multipliedBy(10 ** 8).toString();
+  const amount = new BigNumber(deposit).plus(new BigNumber(1).multipliedBy(10 ** 9)).toString();
   console.log(`${name}: ${tokenRoot.address}`);
-  const tokenWalletAddress = (await tokenRoot.methods.deployWallet({
-    answerId: 0,
-    walletOwner: rootOwner,
-    deployWalletValue: toNano(2),
-  })) as any;
+  const tokenWalletAddress = (
+    await tokenRoot.methods
+      .walletOf({
+        answerId: 0,
+        walletOwner: rootOwner2,
+      })
+      .call({})
+  ).value0;
   console.log(`${name}: ${tokenWalletAddress}`);
 
+  if (
+    (
+      await locklift.provider.getFullContractState({
+        address: new Address(`${tokenWalletAddress}`),
+      })
+    ).state?.isDeployed
+  )
+    throw new Error("You already have a token wallet of this token !");
   // const tokenWalletContract = await locklift.factory.getDeployedContract("TokenWallet", tokenWalletAddress);
   // const res = await tokenWalletContract.methods.balance({ answerId: 0 }).call() as any;
   // console.log(res);

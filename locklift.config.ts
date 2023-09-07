@@ -29,6 +29,7 @@ const config: LockliftConfig = {
     // }
     externalContracts: {
       "node_modules/tip3/build": ["TokenRoot", "TokenWallet"],
+      "node_modules/@broxus/tip3/build": ["TokenRoot", "TokenWallet"],
     },
   },
   linker: {

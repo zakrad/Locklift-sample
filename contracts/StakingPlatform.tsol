@@ -2,10 +2,10 @@ pragma ever-solidity >= 0.61.2;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "tip3/contracts/interfaces/IAcceptTokensTransferCallback.sol";
-import "tip3/contracts/interfaces/ITokenRoot.sol";
-import "tip3/contracts/interfaces/ITokenWallet.sol";
-import "./StakerWallet.sol";
+import "@broxus/tip3/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
+import "@broxus/tip3/contracts/interfaces/ITokenRoot.tsol";
+import "@broxus/tip3/contracts/interfaces/ITokenWallet.tsol";
+import "./StakerWallet.tsol";
 
 contract StakingPlatform {
     uint16  static _nonce; // some random value to affect on contract address

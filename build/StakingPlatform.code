@@ -27,49 +27,49 @@ LDU 128
 LDU 128
 LDMSGADDR
 ENDS
-.loc ../contracts/StakingPlatform.sol, 42
+.loc ../contracts/StakingPlatform.tsol, 42
 ACCEPT
-.loc ../contracts/StakingPlatform.sol, 43
+.loc ../contracts/StakingPlatform.tsol, 43
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/StakingPlatform.sol, 44
+.loc ../contracts/StakingPlatform.tsol, 44
 ROLL 5
 SETGLOB 13
-.loc ../contracts/StakingPlatform.sol, 45
+.loc ../contracts/StakingPlatform.tsol, 45
 PUSH S5
 SETGLOB 14
-.loc ../contracts/StakingPlatform.sol, 46
+.loc ../contracts/StakingPlatform.tsol, 46
 ROLL 4
 SETGLOB 23
-.loc ../contracts/StakingPlatform.sol, 47
+.loc ../contracts/StakingPlatform.tsol, 47
 ROLL 3
 PUSHINT 86400
 MUL
 UFITS 128
 SETGLOB 16
-.loc ../contracts/StakingPlatform.sol, 48
+.loc ../contracts/StakingPlatform.tsol, 48
 ROT
 PUSHINT 86400
 MUL
 UFITS 128
 SETGLOB 17
-.loc ../contracts/StakingPlatform.sol, 49
+.loc ../contracts/StakingPlatform.tsol, 49
 SWAP
 SETGLOB 18
-.loc ../contracts/StakingPlatform.sol, 51
+.loc ../contracts/StakingPlatform.tsol, 51
 BLOCKLT
 GETGLOB 17
 ADD
 UFITS 128
 SETGLOB 19
-.loc ../contracts/StakingPlatform.sol, 52
+.loc ../contracts/StakingPlatform.tsol, 52
 BLOCKLT
 GETGLOB 16
 ADD
 UFITS 128
 SETGLOB 20
-.loc ../contracts/StakingPlatform.sol, 55
+.loc ../contracts/StakingPlatform.tsol, 55
 PUSHINT 100000000
 MYADDR
 ROLL 3
@@ -88,7 +88,7 @@ STBREFR
 ENDC
 PUSHINT 1
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 64
+.loc ../contracts/StakingPlatform.tsol, 64
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -97,7 +97,7 @@ STZEROES
 ENDC
 PUSHPOW2 7
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
@@ -112,7 +112,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/StakingPlatform.sol, 67
+.loc ../contracts/StakingPlatform.tsol, 67
 OVER
 PUSHCONT {
 	LDREF
@@ -122,7 +122,7 @@ PUSHCONT {
 IF
 LDMSGADDR
 ENDS
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $onTokenWallet_e6d1bd58_internal_macro$
 }
@@ -133,7 +133,7 @@ CALLREF {
 THROW 0
 
 .macro onTokenWallet_e6d1bd58_internal_macro
-.loc ../contracts/StakingPlatform.sol, 68
+.loc ../contracts/StakingPlatform.tsol, 68
 GETGLOB 9
 PARSEMSGADDR
 INDEX 3
@@ -144,13 +144,13 @@ GETGLOB 14
 SDEQ
 AND
 THROWIFNOT 101
-.loc ../contracts/StakingPlatform.sol, 73
+.loc ../contracts/StakingPlatform.tsol, 73
 PUSHINT 1000000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/StakingPlatform.sol, 74
+.loc ../contracts/StakingPlatform.tsol, 74
 SETGLOB 15
-.loc ../contracts/StakingPlatform.sol, 75
+.loc ../contracts/StakingPlatform.tsol, 75
 GETGLOB 12
 NEWC
 STSLICECONST x42_
@@ -160,7 +160,7 @@ STZEROES
 ENDC
 PUSHPOW2 7
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 
 .macro deployStakerWallet
 DROP
@@ -171,7 +171,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/StakingPlatform.sol, 78
+.loc ../contracts/StakingPlatform.tsol, 78
 OVER
 PUSHCONT {
 	LDREF
@@ -185,7 +185,7 @@ ENDS
 CTOS
 LDMSGADDR
 ENDS
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $deployStakerWallet_2f1fab78_internal_macro$
 }
@@ -195,11 +195,11 @@ IFREF {
 THROW 0
 
 .macro deployStakerWallet_2f1fab78_internal_macro
-.loc ../contracts/StakingPlatform.sol, 79
+.loc ../contracts/StakingPlatform.tsol, 79
 PUSHINT 100000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/StakingPlatform.sol, 80
+.loc ../contracts/StakingPlatform.tsol, 80
 PUSHINT 0
 NEWC
 STU 256
@@ -234,7 +234,7 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/StakingPlatform.sol, 90
+.loc ../contracts/StakingPlatform.tsol, 90
 SWAP
 GETGLOB 21
 GETGLOB 20
@@ -304,7 +304,7 @@ STBREFR
 ENDC
 PUSHPOW2 7
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 
 .macro onWithdraw
 DROP
@@ -315,7 +315,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/StakingPlatform.sol, 99
+.loc ../contracts/StakingPlatform.tsol, 99
 OVER
 PUSHCONT {
 	LDREF
@@ -326,7 +326,7 @@ IF
 LDU 128
 LDMSGADDR
 ENDS
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $onWithdraw_be48d548_internal_macro$
 }
@@ -337,11 +337,11 @@ CALLREF {
 THROW 0
 
 .macro onWithdraw_be48d548_internal_macro
-.loc ../contracts/StakingPlatform.sol, 100
+.loc ../contracts/StakingPlatform.tsol, 100
 PUSHINT 100000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/StakingPlatform.sol, 102
+.loc ../contracts/StakingPlatform.tsol, 102
 PUSHINT 0
 NEWC
 STU 256
@@ -376,21 +376,21 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/StakingPlatform.sol, 112
+.loc ../contracts/StakingPlatform.tsol, 112
 HASHCU
 NEWC
 STSLICECONST x801_
 STU 256
 ENDC
 CTOS
-.loc ../contracts/StakingPlatform.sol, 115
+.loc ../contracts/StakingPlatform.tsol, 115
 GETGLOB 9
 SDEQ
 PUSHCONT {
-	.loc ../contracts/StakingPlatform.sol, 116
+	.loc ../contracts/StakingPlatform.tsol, 116
 	PUSHREF {
 	}
-	.loc ../contracts/StakingPlatform.sol, 117
+	.loc ../contracts/StakingPlatform.tsol, 117
 	FALSE
 	PUSH S2
 	PUSHINT 100000000
@@ -417,11 +417,11 @@ PUSHCONT {
 	ENDC
 	PUSHPOW2 7
 	SENDRAWMSG
-	.loc ../contracts/StakingPlatform.sol, 125
+	.loc ../contracts/StakingPlatform.tsol, 125
 	DUP
 }
 PUSHCONT {
-	.loc ../contracts/StakingPlatform.sol, 127
+	.loc ../contracts/StakingPlatform.tsol, 127
 	GETGLOB 9
 }
 IFELSE
@@ -433,7 +433,7 @@ STZEROES
 ENDC
 PUSHPOW2 7
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 DROP2
 
 .macro onClaimRewards
@@ -445,7 +445,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/StakingPlatform.sol, 131
+.loc ../contracts/StakingPlatform.tsol, 131
 OVER
 PUSHCONT {
 	LDREF
@@ -456,7 +456,7 @@ IF
 LDU 128
 LDMSGADDR
 ENDS
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $onClaimRewards_5c862942_internal_macro$
 }
@@ -467,11 +467,11 @@ CALLREF {
 THROW 0
 
 .macro onClaimRewards_5c862942_internal_macro
-.loc ../contracts/StakingPlatform.sol, 132
+.loc ../contracts/StakingPlatform.tsol, 132
 PUSHINT 100000000
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/StakingPlatform.sol, 134
+.loc ../contracts/StakingPlatform.tsol, 134
 PUSHINT 0
 NEWC
 STU 256
@@ -506,21 +506,21 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/StakingPlatform.sol, 144
+.loc ../contracts/StakingPlatform.tsol, 144
 HASHCU
 NEWC
 STSLICECONST x801_
 STU 256
 ENDC
 CTOS
-.loc ../contracts/StakingPlatform.sol, 147
+.loc ../contracts/StakingPlatform.tsol, 147
 GETGLOB 9
 SDEQ
 PUSHCONT {
-	.loc ../contracts/StakingPlatform.sol, 148
+	.loc ../contracts/StakingPlatform.tsol, 148
 	PUSHREF {
 	}
-	.loc ../contracts/StakingPlatform.sol, 149
+	.loc ../contracts/StakingPlatform.tsol, 149
 	FALSE
 	PUSH S2
 	PUSHINT 100000000
@@ -547,11 +547,11 @@ PUSHCONT {
 	ENDC
 	PUSHPOW2 7
 	SENDRAWMSG
-	.loc ../contracts/StakingPlatform.sol, 157
+	.loc ../contracts/StakingPlatform.tsol, 157
 	DUP
 }
 PUSHCONT {
-	.loc ../contracts/StakingPlatform.sol, 159
+	.loc ../contracts/StakingPlatform.tsol, 159
 	GETGLOB 9
 }
 IFELSE
@@ -563,7 +563,7 @@ STZEROES
 ENDC
 PUSHPOW2 7
 SENDRAWMSG
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 DROP2
 
 .macro totalStaked
@@ -575,9 +575,9 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/StakingPlatform.sol, 163
+.loc ../contracts/StakingPlatform.tsol, 163
 ENDS
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 CALLREF {
 	CALL $totalStaked_817b1cd2_internal_macro$
 }
@@ -609,9 +609,9 @@ IFREF {
 THROW 0
 
 .macro totalStaked_817b1cd2_internal_macro
-.loc ../contracts/StakingPlatform.sol, 164
+.loc ../contracts/StakingPlatform.tsol, 164
 GETGLOB 21
-.loc ../contracts/StakingPlatform.sol, 0
+.loc ../contracts/StakingPlatform.tsol, 0
 
 .macro c4_to_c7
 PUSHROOT
